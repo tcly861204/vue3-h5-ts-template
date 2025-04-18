@@ -1,23 +1,26 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { VantResolver } from '@vant/auto-import-resolver'
-import tailwindcss from '@tailwindcss/vite'
-import { join } from 'node:path'
-import { cwd } from 'node:process'
+import { defineConfig, loadEnv } from "vite"
+import vue from "@vitejs/plugin-vue"
+import AutoImport from "unplugin-auto-import/vite"
+import Components from "unplugin-vue-components/vite"
+import { VantResolver } from "@vant/auto-import-resolver"
+import tailwindcss from "@tailwindcss/vite"
+import { join } from "node:path"
+import { cwd } from "node:process"
 const root: string = cwd()
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, root)
+  // const isProd = mode !== "development"
   return {
+    base: env.VITE_BUILD_BASE || "/",
     mode,
     server: {
-      host: '0.0.0.0',
-      port: 8080,
-      open: true,
+      host: env.VITE_APP_HOST,
+      port: Number(env.VITE_APP_PORT),
+      open: true
     },
     resolve: {
       alias: {
-        "@": join(root, 'src')
+        "@": join(root, "src")
       }
     },
     plugins: [
@@ -26,5 +29,28 @@ export default defineConfig(({ mode }) => {
       AutoImport({ resolvers: [VantResolver()] }),
       Components({ resolvers: [VantResolver()] })
     ],
+    build: {
+      outDir: "dist",
+      assetsDir: "assets",
+      // emptyOutDir: true,
+      // cssCodeSplit: true,
+      // sourcemap: false,
+      // manifest: false,
+      // brotliSize: true,
+      // chunkSizeWarningLimit: 300,
+      // terserOptions: {
+      //   compress: {
+      //     drop_console: isProd,
+      //     drop_debugger: isProd
+      //   }
+      // },
+      rollupOptions: {
+        output: {
+          entryFileNames: "assets/js/[name]-[hash].js",
+          chunkFileNames: "assets/js/[name]-[hash].js",
+          assetFileNames: "assets/[ext]/[name]-[hash].[ext]"
+        }
+      }
+    }
   }
 })
