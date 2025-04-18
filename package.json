@@ -1,11 +1,12 @@
 {
   "name": "vue3-h5-template",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --mode development",
-    "build": "vue-tsc -b && vite build --mode production",
+    "build": "vue-tsc --noEmit && vite build --mode production",
+    "lint:prettier": "prettier --write \"src/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
     "preview": "vite preview"
   },
   "dependencies": {

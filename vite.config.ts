@@ -9,7 +9,7 @@ import { cwd } from "node:process"
 const root: string = cwd()
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, root)
-  // const isProd = mode !== "development"
+  const isProd = mode !== "development"
   return {
     base: env.VITE_BUILD_BASE || "/",
     mode,
@@ -30,25 +30,26 @@ export default defineConfig(({ mode }) => {
       Components({ resolvers: [VantResolver()] })
     ],
     build: {
-      outDir: "dist",
-      assetsDir: "assets",
-      // emptyOutDir: true,
-      // cssCodeSplit: true,
-      // sourcemap: false,
-      // manifest: false,
-      // brotliSize: true,
-      // chunkSizeWarningLimit: 300,
-      // terserOptions: {
-      //   compress: {
-      //     drop_console: isProd,
-      //     drop_debugger: isProd
-      //   }
-      // },
+      outDir: env.VITE_BUILD_OUTDIR || "dist",
+      assetsDir: env.VITE_BUILD_ASSETS_DIR || "assets",
+      emptyOutDir: true,
+      cssCodeSplit: true,
+      sourcemap: false,
+      manifest: false,
+      brotliSize: true,
+      chunkSizeWarningLimit: 300,
+      terserOptions: {
+        compress: {
+          drop_console: isProd,
+          drop_debugger: isProd
+        }
+      },
       rollupOptions: {
         output: {
-          entryFileNames: "assets/js/[name]-[hash].js",
-          chunkFileNames: "assets/js/[name]-[hash].js",
-          assetFileNames: "assets/[ext]/[name]-[hash].[ext]"
+          entryFileNames: env.VITE_BUILD_ASSETS_DIR + "/js/[name]-[hash].js",
+          chunkFileNames: env.VITE_BUILD_ASSETS_DIR + "/js/[name]-[hash].js",
+          assetFileNames:
+            env.VITE_BUILD_ASSETS_DIR + "/[ext]/[name]-[hash].[ext]"
         }
       }
     }
