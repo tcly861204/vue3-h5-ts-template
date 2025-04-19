@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^3.0.2",
     "vant": "^4.9.19",
