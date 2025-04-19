@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --mode development",
     "build": "vue-tsc --noEmit && vite build --mode production",
+    "test": "vue-tsc --noEmit && vite build --mode test",
     "lint:prettier": "prettier --write \"src/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
     "preview": "vite preview"
   },
