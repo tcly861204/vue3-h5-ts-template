@@ -26,8 +26,14 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       tailwindcss(),
-      AutoImport({ resolvers: [VantResolver()] }),
-      Components({ resolvers: [VantResolver()] })
+      AutoImport({
+        dts: "src/types/auto-imports.d.ts",
+        resolvers: [VantResolver()]
+      }),
+      Components({
+        dts: "src/types/components.d.ts",
+        resolvers: [VantResolver()]
+      })
     ],
     build: {
       outDir: env.VITE_BUILD_OUTDIR || "dist",
