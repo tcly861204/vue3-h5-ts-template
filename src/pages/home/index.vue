@@ -4,5 +4,5 @@ defineOptions({
 })
 </script>
 <template>
-  <section class="bg-green-500 text-white">首页</section>
+  <section class="py-3">首页</section>
 </template>
