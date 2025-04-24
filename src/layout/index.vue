@@ -8,6 +8,9 @@
   </section>
 </template>
 <script lang="ts" setup>
+defineOptions({
+  name: "layout"
+})
 import Tabbar from "@/components/tabbar/index.vue"
 import NavBar from "@/components/navbar/index.vue"
 </script>

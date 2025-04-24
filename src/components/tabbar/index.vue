@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue"
+defineOptions({
+  name: "tabbar"
+})
 const active = ref(0)
 const tabList = reactive([
   {
